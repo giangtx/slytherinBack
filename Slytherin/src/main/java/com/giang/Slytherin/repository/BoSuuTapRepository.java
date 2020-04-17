@@ -16,4 +16,7 @@ public interface BoSuuTapRepository extends JpaRepository<BoSuuTap,Long> {
 
     @Query(value = "select * from bosuutap limit 6",nativeQuery = true)
     List<BoSuuTap> findBoSuuTapLimit();
+
+    @Query(value = "select * from bosuutap",nativeQuery = true)
+    List<BoSuuTap> findBoSuuTapALl();
 }

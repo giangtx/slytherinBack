@@ -25,16 +25,27 @@ public class BoSuutapServiceImp {
     }
     public List<BoSuuTapData> findBoSuuTapLimit(){
 
-        List<BoSuuTapData> lstBoSuuTap=new ArrayList<>();
+        List<BoSuuTapData> lstdata=new ArrayList<>();
         List<BoSuuTap> boSuuTap=boSuuTapRepository.findBoSuuTapLimit();
         for (BoSuuTap bst:boSuuTap) {
-            BoSuuTapData boSuuTapData=new BoSuuTapData();
-            boSuuTapData.setMabosuutap(bst.getMaBoSuuTap());
-            boSuuTapData.setTenbosuutap(bst.getTenBoSuuTap());
-            boSuuTapData.setMota(bst.getMoTa());
-            boSuuTapData.setAnhbosuutap(bst.getAnhBoSuuTap());
-            lstBoSuuTap.add(boSuuTapData);
+            BoSuuTapData data=new BoSuuTapData();
+            data.setMabosuutap(bst.getMaBoSuuTap());
+            data.setTenbosuutap(bst.getTenBoSuuTap());
+            data.setMota(bst.getMoTa());
+            data.setAnhbosuutap(bst.getAnhBoSuuTap());
+            lstdata.add(data);
         }
-        return lstBoSuuTap;
+        return lstdata;
+    }
+    public List<BoSuuTapData> findBoSuuTapALl(){
+        List<BoSuuTapData> lstdata=new ArrayList<>();
+        List<BoSuuTap> lstbosuutap=boSuuTapRepository.findBoSuuTapALl();
+        for (BoSuuTap boSuuTap:lstbosuutap){
+            BoSuuTapData data = new BoSuuTapData();
+            data.setMabosuutap(boSuuTap.getMaBoSuuTap());
+            data.setTenbosuutap(boSuuTap.getTenBoSuuTap());
+            lstdata.add(data);
+        }
+        return lstdata;
     }
 }

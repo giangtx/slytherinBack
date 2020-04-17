@@ -20,11 +20,16 @@ public class HinhAnhData {
     @JsonProperty("tenhinhanh")
     private String tenhinhanh;
 
+    @JsonProperty("resize")
+    private String resize;
     @JsonProperty("kichco")
     private String kichco;
 
     @JsonProperty("mota")
     private String mota;
+
+    @JsonProperty
+    private long mabosuutap;
 
     @JsonProperty("tenbosuutap")
     private String tenbosuutap;
@@ -43,5 +48,11 @@ public class HinhAnhData {
 
     @JsonProperty("listbinhluan")
     private List<BinhLuanData> listbinhluan;
+
+    @JsonProperty("solike")
+    private int solike;
+
+    @JsonProperty("sobinhluan")
+    private int sobinhluan;
 
 }

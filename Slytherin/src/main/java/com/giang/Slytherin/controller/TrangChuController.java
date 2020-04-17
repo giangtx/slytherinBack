@@ -5,8 +5,10 @@ import com.giang.Slytherin.controller.response.HinhAnhData;
 import com.giang.Slytherin.controller.response.ListHinhAnhData;
 import com.giang.Slytherin.model.BoSuuTap;
 import com.giang.Slytherin.model.HinhAnh;
+import com.giang.Slytherin.model.TaiKhoan;
 import com.giang.Slytherin.service.BoSuutapServiceImp;
 import com.giang.Slytherin.service.HinhAnhServiceImp;
+import com.giang.Slytherin.service.TaiKhoanServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,24 +25,25 @@ public class TrangChuController {
     @Autowired
     BoSuutapServiceImp boSuutapServiceImp;
 
-    @GetMapping("/hinhanh")
-    public HinhAnhData HinhAnhTest(){
-        return hinhAnhServiceImp.findByMaHinhAnh(1L,61);
-    }
+    @Autowired
+    TaiKhoanServiceImp taiKhoanServiceImp;
 
     @GetMapping("/listhinhanh")
     public List<HinhAnhData> findListHinhAnh(){
-        return hinhAnhServiceImp.findListHinhAnh();
+        return hinhAnhServiceImp.findListHinhAnhFull();
     }
 
-    @GetMapping("/bosuutap")
-    public BoSuuTapData findBoSuuTapByID(@RequestParam long id){
-        return boSuutapServiceImp.findByMaBoSuuTap(id);
+    @GetMapping("/taikhoantest")
+    public void findByTenDangNhap(){
+        System.out.println(taiKhoanServiceImp.findByTenDangNhap("slytherin"));
     }
-
     @GetMapping("/bosuutaplimit")
     public List<BoSuuTapData> findBoSuuTapLimit(){
-
         return boSuutapServiceImp.findBoSuuTapLimit();
+    }
+
+    @GetMapping("/hinhanhhomelimit")
+    public List<HinhAnhData> findHinhAnhHomeLimit(){
+        return hinhAnhServiceImp.findHinhAnhHomeLimit();
     }
 }

@@ -14,4 +14,10 @@ public class BinhLuanData {
 
     @JsonProperty("binhluan")
     private String binhluan;
+
+    @JsonProperty("tentaikhoan")
+    private String tentaikhoan;
+
+    @JsonProperty("anhdaidien")
+    private String anhdaidien;
 }
