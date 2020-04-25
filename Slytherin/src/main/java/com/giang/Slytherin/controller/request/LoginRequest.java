@@ -1,4 +1,4 @@
-package com.giang.Slytherin.payload;
+package com.giang.Slytherin.controller.request;
 
 import lombok.Data;
 

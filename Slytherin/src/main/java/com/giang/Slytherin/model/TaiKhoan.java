@@ -33,6 +33,11 @@ public class TaiKhoan {
     @ToString.Exclude
     private Set<HinhAnh> hinhanhs;
 
+    @OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Post> posts;
+
     @ManyToOne
     @JoinColumn(name = "MaChucVu")
     @EqualsAndHashCode.Exclude
@@ -49,4 +54,13 @@ public class TaiKhoan {
     @ToString.Exclude
     private Set<Thich> thiches;
 
+    @OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PostLike> postLikes;
+
+    @OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PostComment> postComments;
 }

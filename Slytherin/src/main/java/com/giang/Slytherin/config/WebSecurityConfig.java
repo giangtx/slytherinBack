@@ -1,6 +1,7 @@
 package com.giang.Slytherin.config;
 
 
+import com.giang.Slytherin.jwt.JwtAccessDeniedHandler;
 import com.giang.Slytherin.jwt.JwtAuthenticationEntryPoint;
 import com.giang.Slytherin.jwt.JwtAuthenticationFilter;
 import com.giang.Slytherin.service.TaiKhoanServiceImp;
@@ -34,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    @Autowired
+    JwtAccessDeniedHandler accessDeniedHandler;
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
         return new JwtAuthenticationFilter();
@@ -60,15 +64,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/api/v2/login","/api/v1/**").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
+                .antMatchers("/api/v1/public/**").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
                 .antMatchers("/api/v2/admin").hasRole("ADMIN")
                 .antMatchers("/api/v2/user").hasRole("USER")
-                .antMatchers("/api/v2/useradmin").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/v1/auth/**").hasAnyRole("USER","ADMIN")
                 .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).accessDeniedHandler(accessDeniedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }

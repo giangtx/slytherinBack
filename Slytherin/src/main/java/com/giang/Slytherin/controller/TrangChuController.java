@@ -3,6 +3,9 @@ package com.giang.Slytherin.controller;
 import com.giang.Slytherin.controller.response.BoSuuTapData;
 import com.giang.Slytherin.controller.response.HinhAnhData;
 import com.giang.Slytherin.controller.response.ListHinhAnhData;
+import com.giang.Slytherin.controller.response.TaiKhoanData;
+import com.giang.Slytherin.controller.response.base.BaseResponse;
+import com.giang.Slytherin.controller.response.base.ResponseImpl;
 import com.giang.Slytherin.model.BoSuuTap;
 import com.giang.Slytherin.model.HinhAnh;
 import com.giang.Slytherin.model.TaiKhoan;
@@ -10,6 +13,7 @@ import com.giang.Slytherin.service.BoSuutapServiceImp;
 import com.giang.Slytherin.service.HinhAnhServiceImp;
 import com.giang.Slytherin.service.TaiKhoanServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,22 +32,27 @@ public class TrangChuController {
     @Autowired
     TaiKhoanServiceImp taiKhoanServiceImp;
 
-    @GetMapping("/listhinhanh")
-    public List<HinhAnhData> findListHinhAnh(){
-        return hinhAnhServiceImp.findListHinhAnhFull();
+    @GetMapping("/public/listhinhanh")
+    public ResponseEntity<BaseResponse<List<HinhAnhData>>> findListHinhAnh(){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                .with(hinhAnhServiceImp.findListHinhAnhFull()).build());
     }
 
-    @GetMapping("/taikhoantest")
-    public void findByTenDangNhap(){
-        System.out.println(taiKhoanServiceImp.findByTenDangNhap("slytherin"));
-    }
-    @GetMapping("/bosuutaplimit")
-    public List<BoSuuTapData> findBoSuuTapLimit(){
-        return boSuutapServiceImp.findBoSuuTapLimit();
+    @GetMapping("/public/bosuutaplimit")
+    public ResponseEntity<BaseResponse<List<BoSuuTapData>>> findBoSuuTapLimit(){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                .with(boSuutapServiceImp.findBoSuuTapLimit()).build());
     }
 
-    @GetMapping("/hinhanhhomelimit")
-    public List<HinhAnhData> findHinhAnhHomeLimit(){
-        return hinhAnhServiceImp.findHinhAnhHomeLimit();
+    @GetMapping("/public/hinhanhhomelimit")
+    public ResponseEntity<BaseResponse<List<HinhAnhData>>> findHinhAnhHomeLimit(){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                .with(hinhAnhServiceImp.findHinhAnhHomeLimit()).build());
+    }
+
+    @GetMapping("/auth/info")
+    public ResponseEntity<BaseResponse<TaiKhoanData>> getInfoTest(){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                .with(taiKhoanServiceImp.getInfoTest()).build());
     }
 }

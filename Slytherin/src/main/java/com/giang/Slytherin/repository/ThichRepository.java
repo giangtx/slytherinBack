@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ThichRepository extends JpaRepository<Thich,Long> {
 
     @Query("select t from Thich t where MaHinhAnh =:idHa and MaTaiKhoan =:idTk")
-    Thich findTrangThaiThichByIdHAandIdTaiKhoan(long idHa, int idTk);
+    Thich findTrangThaiThichByIdHAandIdTaiKhoan(long idHa, long idTk);
 }

@@ -24,7 +24,7 @@ public class HinhAnhServiceImp {
     ThichRepository thichRepository;
 
 
-    public HinhAnhData findByMaHinhAnh(long idHa,int idTk){
+    public HinhAnhData findByMaHinhAnh(long idHa,long idTk){
         HinhAnhData data=new HinhAnhData();
         HinhAnh hinhAnh=hinhAnhRepository.findByMaHinhAnh(idHa);
         Thich thich=thichRepository.findTrangThaiThichByIdHAandIdTaiKhoan(hinhAnh.getMaHinhAnh(),idTk);
