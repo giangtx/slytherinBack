@@ -60,6 +60,8 @@ public class TaiKhoanServiceImp implements UserDetailsService {
         }
         return new CustomUserDetails(user,grantedAuthorities);
     }
+
+
     public TaiKhoanData getInfoTest(){
         CustomUserDetails customUserDetails= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         TaiKhoanData data=new TaiKhoanData();

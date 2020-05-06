@@ -22,5 +22,5 @@ public class PostCommentData {
     private String avatar;
 
     @JsonProperty("timecomment")
-    private java.sql.Date timecomment;
+    private java.sql.Timestamp timecomment;
 }

@@ -19,7 +19,7 @@ public class PostComment {
     private String commentcon;
 
     @Column(name = "timecomment")
-    private java.sql.Date timecomment;
+    private java.sql.Timestamp timecomment;
 
     @ManyToOne
     @JoinColumn(name = "MaTaiKhoan")

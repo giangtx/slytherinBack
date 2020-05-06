@@ -1,7 +1,9 @@
 package com.giang.Slytherin.controller;
 
 import com.giang.Slytherin.controller.base.BaseController;
+import com.giang.Slytherin.controller.request.BinhLuanRequest;
 import com.giang.Slytherin.controller.request.LoginRequest;
+import com.giang.Slytherin.controller.request.ThichRequest;
 import com.giang.Slytherin.controller.response.*;
 import com.giang.Slytherin.controller.response.base.BaseResponse;
 import com.giang.Slytherin.controller.response.base.ResponseImpl;
@@ -74,14 +76,34 @@ public class TestController extends BaseController {
         return "test";
     }
 
-    @GetMapping("/post/{id}")
-    public ResponseEntity<BaseResponse<List<PostData>>> findPostAll(@Valid @PathVariable("id") int id){
-        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok").with(postServiceImp.findPostAll(id)).build());
+    @GetMapping("/post/findall")
+    public ResponseEntity<BaseResponse<List<PostData>>> findPostAll(){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok").with(postServiceImp.findPostAll()).build());
     }
 
-    @GetMapping("/comment/{id}")
+    @GetMapping("/post/{id}")
+    public ResponseEntity<BaseResponse<PostData>> findPostById(@Valid @PathVariable("id") int id){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok").with(postServiceImp.findPostById(id)).build());
+    }
+
+    @GetMapping("/post/comment/{id}")
     public ResponseEntity<BaseResponse<List<PostCommentData>>> findCommentPost(@Valid @PathVariable("id") int id){
         return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok").with(postServiceImp.findPostCommentsByIdpost(id)).build());
     }
 
+    @PostMapping("/post/comment/commenthandle")
+    public ResponseEntity<BaseResponse<List<PostCommentData>>> commentHandle(@RequestBody BinhLuanRequest binhLuanRequest){
+        if (postServiceImp.commentHandle(binhLuanRequest)){
+            return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                    .with(postServiceImp.findPostCommentsByIdpost(binhLuanRequest.getMahinhanh())).build());
+        }else{
+            return ResponseEntity.ok().body(ResponseImpl.ok().with(-1,"false").build());
+        }
+    }
+    @PostMapping("/post/like")
+    public ResponseEntity<BaseResponse<PostData>> likeHandle(@Valid @RequestBody ThichRequest thichRequest){
+        return ResponseEntity.ok().body(ResponseImpl.ok().with(1,"ok")
+                .with(postServiceImp.likeHandle(thichRequest.getMahinhanh())).build());
+
+    }
 }

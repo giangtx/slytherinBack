@@ -17,7 +17,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e)
             throws IOException, ServletException {
-        BaseResponse response=new BaseResponse(403,"Access Denied");
+        BaseResponse response = new BaseResponse(403,"Access Denied");
         response.setMessage("Access Denied");
         OutputStream out=httpServletResponse.getOutputStream();
         ObjectMapper mapper=new ObjectMapper();

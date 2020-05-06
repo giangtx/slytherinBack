@@ -22,6 +22,7 @@ public class HinhAnhData {
 
     @JsonProperty("resize")
     private String resize;
+
     @JsonProperty("kichco")
     private String kichco;
 

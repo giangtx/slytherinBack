@@ -2,6 +2,8 @@ package com.giang.Slytherin.service;
 
 import com.giang.Slytherin.controller.response.BinhLuanData;
 import com.giang.Slytherin.controller.response.HinhAnhData;
+import com.giang.Slytherin.controller.response.HinhAnhResponse;
+import com.giang.Slytherin.controller.response.ListHinhAnhResponse;
 import com.giang.Slytherin.model.BinhLuan;
 import com.giang.Slytherin.model.HinhAnh;
 import com.giang.Slytherin.model.Thich;
@@ -9,8 +11,11 @@ import com.giang.Slytherin.repository.HinhAnhRepository;
 import com.giang.Slytherin.repository.ThichRepository;
 import com.sun.org.apache.bcel.internal.generic.DADD;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,29 +131,34 @@ public class HinhAnhServiceImp {
         return lstdata;
     }
 
-    public List<HinhAnhData> findListHinhAnhByColl(int id){
-        List<HinhAnhData> lstdata = new ArrayList<>();
-        List<HinhAnh> listHinhAnh = hinhAnhRepository.findListHinhAnhByColl(id);
+    public ListHinhAnhResponse findListHinhAnhByColl(int id,int idPage){
+        ListHinhAnhResponse response=new ListHinhAnhResponse();
+        List<HinhAnhResponse> lstdata = new ArrayList<>();
+        Page<HinhAnh> listHinhAnh = hinhAnhRepository.findListHinhAnhByColl(id,PageRequest.of(idPage,10));
         for (HinhAnh hinhAnh : listHinhAnh) {
-            HinhAnhData data = new HinhAnhData();
+            HinhAnhResponse data = new HinhAnhResponse();
             data.setMahinhanh(hinhAnh.getMaHinhAnh());
-            data.setTenhinhanh(hinhAnh.getTenHinhAnh());
             data.setResize(hinhAnh.getResize());
             lstdata.add(data);
         }
-        return lstdata;
+        response.setSotrang(listHinhAnh.getTotalPages());
+        response.setListhinhanh(lstdata);
+        return response;
     }
 
-    public List<HinhAnhData>findListHinhAnh(){
-        List<HinhAnhData> lstdata = new ArrayList<>();
-        List<HinhAnh> listHinhAnh = hinhAnhRepository.findListHinhAnh();
+    public ListHinhAnhResponse findListHinhAnh(int id){
+        ListHinhAnhResponse response=new ListHinhAnhResponse();
+        List<HinhAnhResponse> lstdata = new ArrayList<>();
+        Page<HinhAnh> listHinhAnh = hinhAnhRepository.findListHinhAnh(PageRequest.of(id,10));
         for (HinhAnh hinhanh : listHinhAnh) {
-            HinhAnhData data = new HinhAnhData();
+            HinhAnhResponse data = new HinhAnhResponse();
             data.setMahinhanh(hinhanh.getMaHinhAnh());
-            data.setTenhinhanh(hinhanh.getTenHinhAnh());
             data.setResize(hinhanh.getResize());
             lstdata.add(data);
         }
-        return lstdata;
+        response.setSotrang(listHinhAnh.getTotalPages());
+        response.setListhinhanh(lstdata);
+        return response;
     }
+
 }
