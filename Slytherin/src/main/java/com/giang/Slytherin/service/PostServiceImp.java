@@ -86,7 +86,7 @@ public class PostServiceImp {
         for (PostComment comment:comments){
             PostCommentData data=new PostCommentData();
             data.setId(comment.getIdcomment());
-            data.setComment(comment.getCommentcon());
+            data.setComment(comment.getContent());
             data.setTimecomment(comment.getTimecomment());
             if(comment.getTaikhoan()!=null){
                 data.setUsername(comment.getTaikhoan().getTenDangNhap());
@@ -101,7 +101,7 @@ public class PostServiceImp {
         CustomUserDetails customUserDetails= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (customUserDetails!=null){
             PostComment postComment=new PostComment();
-            postComment.setCommentcon(binhLuanRequest.getBinhluan());
+            postComment.setContent(binhLuanRequest.getBinhluan());
             postComment.setTaikhoan(customUserDetails.getTaikhoan());
             postComment.setPost(postRepository.findById(binhLuanRequest.getMahinhanh()));
             java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());

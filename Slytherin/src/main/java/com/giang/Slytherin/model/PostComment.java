@@ -15,8 +15,8 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idcomment;
 
-    @Column(name = "commentcon")
-    private String commentcon;
+    @Column(name = "content")
+    private String content;
 
     @Column(name = "timecomment")
     private java.sql.Timestamp timecomment;

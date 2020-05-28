@@ -34,6 +34,8 @@ public class JwtTokenProvider {
                 .withClaim("userId", userDetails.getTaikhoan().getMaTaiKhoan())
                 .withClaim("expired", expiryDate)
                 .withClaim("fullName", userDetails.getTaikhoan().getHoTen())
+                .withClaim("userName",userDetails.getUsername())
+                .withClaim("avatar",userDetails.getTaikhoan().getAnhDaiDien())
                 .withClaim("email", userDetails.getTaikhoan().getEmail())
                 .withIssuer("auth0")
                 .sign(algorithm);

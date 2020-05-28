@@ -10,4 +10,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan,Long> {
 
     @Query(value = "select * from taikhoan where TenDangNhap= :username",nativeQuery = true)
     TaiKhoan findByTenDangNhap(String username);
+
+    @Query(value = "select * from taikhoan where MaTaiKhoan=:id",nativeQuery = true)
+    TaiKhoan findById(int id);
 }

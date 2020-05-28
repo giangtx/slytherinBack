@@ -83,6 +83,7 @@ public class HinhAnhServiceImp {
                     BinhLuanData bl=new BinhLuanData();
                     bl.setMabinhluan(listbl.getMaTuongTac());
                     bl.setBinhluan(listbl.getBinhLuan());
+                    bl.setAnhdaidien(listbl.getTaikhoan().getAnhDaiDien());
                     bls.add(bl);
                 }
                 data.setListbinhluan(bls);

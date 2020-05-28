@@ -13,6 +13,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -69,7 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/public/**").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
                 .antMatchers("/api/v2/admin").hasRole("ADMIN")
                 .antMatchers("/api/v2/user").hasRole("USER")
-                .antMatchers("/api/v1/auth/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/v1/auth/**",
+                        "/socket/**")
+                .hasAnyRole("USER","ADMIN")
                 .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).accessDeniedHandler(accessDeniedHandler).and()
@@ -77,6 +80,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/socket/**");
+    }
+
 
 
 }
